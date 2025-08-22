@@ -16,6 +16,8 @@ import {
   Sparkles,
   Wand2,
   ArrowRight,
+  Mail,
+  ThumbsUp,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import {
@@ -225,9 +227,9 @@ export function AppClient() {
 
           <div className="mt-8">
             {isLoading && (
-              <div className="space-y-4">
-                {[...Array(6)].map((_, i) => (
-                  <Skeleton key={i} className="h-24 w-full rounded-lg" />
+              <div className="space-y-3">
+                {[...Array(10)].map((_, i) => (
+                  <Skeleton key={i} className="h-16 w-full rounded-lg" />
                 ))}
               </div>
             )}
@@ -257,16 +259,17 @@ export function AppClient() {
                     </Button>
                   </div>
                 </div>
-                <div className="grid gap-4 md:grid-cols-2">
-                  {variations.map((variation) => (
-                    <Card
+                <div className="space-y-3">
+                  {variations.map((variation, index) => (
+                     <Card
                       key={variation.id}
-                      className="group flex flex-col justify-between transition-shadow hover:shadow-md"
+                      className="group flex items-center justify-between p-4 transition-shadow hover:shadow-md"
                     >
-                      <CardContent className="flex-grow p-4">
+                      <div className="flex items-center gap-4">
+                        <span className="text-xl font-bold text-primary">{index + 1}.</span>
                         <p className="text-foreground">{variation.text}</p>
-                      </CardContent>
-                      <div className="flex justify-end gap-1 border-t bg-background/50 p-2">
+                      </div>
+                      <div className="flex opacity-0 transition-opacity group-hover:opacity-100">
                         <Button
                           variant="ghost"
                           size="icon"
@@ -285,7 +288,7 @@ export function AppClient() {
                             className={`h-4 w-4 transition-colors ${
                               favorites.includes(variation.text)
                                 ? 'fill-accent text-accent'
-                                : 'text-muted-foreground group-hover:text-foreground'
+                                : 'text-muted-foreground'
                             }`}
                           />
                         </Button>
@@ -345,7 +348,7 @@ export function AppClient() {
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Button asChild size="lg" className="group animate-button-pulse">
-              <Link href="/app">
+              <Link href="/auth">
                 Try It Free
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
@@ -355,28 +358,37 @@ export function AppClient() {
       </section>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="font-headline text-2xl">Like the results?</DialogTitle>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader className="items-center text-center">
+            <div className="rounded-full bg-primary/10 p-3">
+               <ThumbsUp className="h-8 w-8 text-primary" />
+            </div>
+            <DialogTitle className="font-headline text-2xl pt-2">Like the results?</DialogTitle>
             <DialogDescription>
-              Get more tools & templates. Sign up to get our best content toolkits, copywriting formulas, and AI pro features delivered to your inbox.
+              Sign up to get our best content toolkits, copywriting formulas, and AI pro features delivered to your inbox.
             </DialogDescription>
           </DialogHeader>
-          <form onSubmit={(e) => { e.preventDefault(); setIsModalOpen(false); toast({ title: "Subscribed!", description: "Thanks for joining our newsletter." })}}>
-            <div className="grid flex-1 gap-2">
-              <Label htmlFor="email" className="sr-only">
-                Email
-              </Label>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setIsModalOpen(false);
+              toast({ title: "Subscribed!", description: "Thanks for joining our newsletter." });
+            }}
+            className="space-y-4"
+          >
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
                 id="email"
                 type="email"
                 placeholder="Enter your email"
                 required
+                className="pl-10"
               />
-              <Button type="submit" className="w-full">
-                Subscribe
-              </Button>
             </div>
+            <Button type="submit" className="w-full">
+              Subscribe for Free
+            </Button>
           </form>
         </DialogContent>
       </Dialog>
