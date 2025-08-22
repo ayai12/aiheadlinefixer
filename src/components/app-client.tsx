@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { generateHeadlineVariations } from '@/ai/flows/generate-headline-variations';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
@@ -15,7 +15,6 @@ import {
   AlertCircle,
   Sparkles,
   Wand2,
-  ArrowRight,
   Mail,
   ThumbsUp,
 } from 'lucide-react';
@@ -28,51 +27,11 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import Link from 'next/link';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 type Variation = {
   text: string;
   id: number;
 };
-
-const testimonials = [
-  {
-    quote: "Can't believe I'm still using this. It's so addictive, I've forgotten what my family looks like. 10/10, would get trapped again.",
-    name: 'A.I. generated user',
-    title: 'Content Creator',
-    avatar: 'AI',
-    image: 'https://placehold.co/100x100.png',
-  },
-  {
-    quote: "This app sucks the boring right out of my headlines. Now my titles are clickbait and I'm drowning in engagement. Thanks for nothing.",
-    name: 'Probably a real person',
-    title: 'Social Media Manager',
-    avatar: 'PR',
-    image: 'https://placehold.co/100x100.png',
-  },
-  {
-    quote: 'Great app bro.',
-    name: 'ChatGPT',
-    title: 'Definitely not a human',
-    avatar: 'CG',
-    image: 'https://placehold.co/100x100.png',
-  },
-];
-
-const StarRating = ({ rating = 5 }: { rating?: number }) => (
-  <div className="flex items-center gap-0.5 text-accent">
-    {[...Array(5)].map((_, i) => (
-      <Star
-        key={i}
-        className={`h-5 w-5 ${
-          i < rating ? 'fill-current' : 'text-muted-foreground/50'
-        }`}
-      />
-    ))}
-  </div>
-);
 
 export function AppClient() {
   const [headline, setHeadline] = useState('');
@@ -301,61 +260,6 @@ export function AppClient() {
           </div>
         </div>
       </div>
-      
-      <section className="bg-card py-24 sm:py-32">
-        <div className="container">
-          <h2 className="text-center font-headline text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Why creators reluctantly love us
-          </h2>
-          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-3">
-            {testimonials.map((testimonial, i) => (
-              <Card key={testimonial.name} className="flex flex-col">
-                <CardContent className="flex-1 pt-6">
-                  <p className="italic text-muted-foreground">"{testimonial.quote}"</p>
-                </CardContent>
-                <CardHeader>
-                  <StarRating />
-                  <div className="flex items-center gap-4 pt-4">
-                    <Avatar>
-                      <AvatarImage src={testimonial.image} alt={testimonial.name} data-ai-hint="profile picture" />
-                      <AvatarFallback>{testimonial.avatar}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <CardTitle className="text-base font-semibold">
-                        {testimonial.name}
-                      </CardTitle>
-                      <p className="text-sm text-muted-foreground">
-                        {testimonial.title}
-                      </p>
-                    </div>
-                  </div>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 text-center sm:py-32">
-        <div className="container">
-          <h1 className="font-headline text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
-            Fix boring headlines in 5 seconds.
-          </h1>
-          <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            Our AI generates 10 viral-ready alternatives instantly.
-            <br />
-            Stop the scroll. Boost engagement. Get click-worthy headlines.
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Button asChild size="lg" className="group animate-button-pulse">
-              <Link href="/auth">
-                Try It Free
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="sm:max-w-lg">
