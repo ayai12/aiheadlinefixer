@@ -3,10 +3,29 @@ import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
+import { SidebarProvider, Sidebar, SidebarInset } from '@/components/ui/sidebar';
+import { CreatorSuiteSidebar } from '@/components/creator-suite-sidebar';
 
 export const metadata: Metadata = {
-  title: 'Headline Optimizer',
-  description: 'Fix boring headlines in 5 seconds with AI.',
+  title: 'Creator Suite',
+  description: 'A sleek multi‑tool platform for creators: AI Headline Fixer, Hashtag Finder, Carousel Maker, Podcast Hooks, Engagement Booster, Trend Radar, Caption & Hook Generator, Brand Deal Pitch Builder, Analytics & Post Optimizer, and Content Calendar & Planner.',
+  icons: [
+    { rel: 'icon', url: '/favicon.ico' },
+    { rel: 'icon', url: '/icon.png' },
+    { rel: 'apple-touch-icon', url: '/apple-icon.png' },
+  ],
+  openGraph: {
+    title: 'Creator Suite',
+    description: 'Creator Suite: Headline Fixer + Hashtag Finder + Carousel Maker + Podcast Hooks + Engagement Booster + Trend Radar + Caption & Hook Generator + Brand Deal Pitch Builder + Analytics & Post Optimizer + Content Calendar & Planner.',
+    images: ['/icon.png'],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Creator Suite',
+    description: 'Creator Suite: Headline Fixer + Hashtag Finder + Carousel Maker + Podcast Hooks + Engagement Booster + Trend Radar + Caption & Hook Generator + Brand Deal Pitch Builder + Analytics & Post Optimizer + Content Calendar & Planner.',
+    images: ['/icon.png'],
+  },
 };
 
 export default function RootLayout({
@@ -29,11 +48,18 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
-        <div className="flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </div>
+        <SidebarProvider>
+          <Sidebar>
+            <CreatorSuiteSidebar />
+          </Sidebar>
+          <SidebarInset>
+            <div className="flex min-h-screen flex-col">
+              <Header />
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </div>
+          </SidebarInset>
+        </SidebarProvider>
         <Toaster />
       </body>
     </html>
